@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Student Blog | SMI Ventures{% endblock %}
+
+{% block content %}
+<!-- ── BLOG HEADER ────────────────────────────────────────────── -->
+<section class="relative pt-32 pb-16 px-6 md:px-12 bg-[#080d1c] border-b border-white/5">
+    <div class="absolute inset-0 pointer-events-none" style="background-image: radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 40px 40px;"></div>
+    
+    <div class="max-w-7xl mx-auto relative z-10 text-center">
+        <h1 class="text-4xl md:text-6xl font-black text-white mb-6">
+            Student <span class="ai-gradient-text">Insights</span> Hub
+        </h1>
+        <p class="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto">
+            Exclusive articles, updates, and deep dives into Generative AI for our enrolled students.
+        </p>
+    </div>
+</section>
+
+<!-- ── BLOG GRID ────────────────────────────────────────────── -->
+<section class="py-20 px-6 md:px-12 relative z-10 bg-[#080d1c]">
+    <div class="max-w-7xl mx-auto">
+        <div class="grid md:grid-cols-3 gap-8">
+            {% for id, post in posts.items() %}
+            <a href="/blog/{{ id }}" class="group block glass-card rounded-2xl overflow-hidden border border-white/10 hover:border-cyan-500/50 transition-all duration-300">
+                <div class="h-56 bg-slate-800 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent z-10"></div>
+                    <img src="{{ post.image }}" alt="{{ post.title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-70">
+                    <span class="absolute top-4 right-4 bg-{{ post.category_color }} text-white text-xs font-bold px-3 py-1 rounded-full z-20">{{ post.category }}</span>
+                </div>
+                <div class="p-6">
+                    <div class="text-slate-400 text-xs font-medium mb-3">{{ post.date }} · {{ post.read_time }}</div>
+                    <h3 class="text-xl font-bold text-white mb-3 group-hover:text-cyan-400 transition-colors">{{ post.title }}</h3>
+                    <p class="text-slate-400 text-sm line-clamp-3">{{ post.excerpt }}</p>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

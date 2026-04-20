@@ -1,0 +1,634 @@
+{% extends "base.html" %}
+
+{% block title %}Women's AI Training | GenAI & Prompt Engineering — March 8–9, 2026{% endblock %}
+
+{% block extra_head %}
+<style>
+    /* ── Rose / Violet / Gold palette for this page ── */
+    :root {
+        --rose: #f43f8a;
+        --violet: #a855f7;
+        --gold: #fbbf24;
+        --pink: #ec4899;
+    }
+
+    .rose-gradient-text {
+        background: linear-gradient(135deg, #f43f8a 0%, #a855f7 50%, #fbbf24 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .rose-glass {
+        background: rgba(244, 63, 138, 0.06);
+        backdrop-filter: blur(14px);
+        border: 1px solid rgba(244, 63, 138, 0.18);
+    }
+
+    /* Animated gradient border */
+    .grad-border {
+        position: relative;
+        border-radius: 1.25rem;
+        padding: 2px;
+        background: linear-gradient(135deg, #f43f8a, #a855f7, #fbbf24, #f43f8a);
+        background-size: 300% 300%;
+        animation: borderSpin 4s ease infinite;
+    }
+
+    .grad-border-inner {
+        background: #0d0a1a;
+        border-radius: calc(1.25rem - 2px);
+    }
+
+    @keyframes borderSpin {
+        0% {
+            background-position: 0% 50%;
+        }
+
+        50% {
+            background-position: 100% 50%;
+        }
+
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    /* Sparkle / floating orbs */
+    .orb1 {
+        position: absolute;
+        width: 420px;
+        height: 420px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(244, 63, 138, 0.18) 0%, transparent 70%);
+        top: -100px;
+        left: -80px;
+        filter: blur(40px);
+        animation: floatOrb 7s ease-in-out infinite;
+    }
+
+    .orb2 {
+        position: absolute;
+        width: 340px;
+        height: 340px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(168, 85, 247, 0.18) 0%, transparent 70%);
+        top: 40%;
+        right: -60px;
+        filter: blur(40px);
+        animation: floatOrb 9s ease-in-out infinite reverse;
+    }
+
+    .orb3 {
+        position: absolute;
+        width: 260px;
+        height: 260px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(251, 191, 36, 0.12) 0%, transparent 70%);
+        bottom: 60px;
+        left: 35%;
+        filter: blur(30px);
+        animation: floatOrb 6s ease-in-out infinite 1s;
+    }
+
+    @keyframes floatOrb {
+
+        0%,
+        100% {
+            transform: translateY(0px) scale(1);
+        }
+
+        50% {
+            transform: translateY(-24px) scale(1.06);
+        }
+    }
+
+    /* Particle stars */
+    .stars-layer {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        pointer-events: none;
+        background-image:
+            radial-gradient(circle, rgba(255, 255, 255, 0.7) 1px, transparent 1px),
+            radial-gradient(circle, rgba(244, 63, 138, 0.5) 1px, transparent 1px),
+            radial-gradient(circle, rgba(168, 85, 247, 0.5) 1px, transparent 1px);
+        background-size: 250px 250px, 180px 180px, 320px 320px;
+        background-position: 10px 20px, 80px 60px, 150px 30px;
+        animation: twinkle 8s ease-in-out infinite;
+    }
+
+    @keyframes twinkle {
+
+        0%,
+        100% {
+            opacity: 0.4;
+        }
+
+        50% {
+            opacity: 1;
+        }
+    }
+
+    /* Countdown digits */
+    .countdown-box {
+        background: rgba(244, 63, 138, 0.08);
+        border: 1px solid rgba(244, 63, 138, 0.25);
+        border-radius: 1rem;
+        padding: 1rem 1.25rem;
+        min-width: 80px;
+        text-align: center;
+    }
+
+    /* Schedule timeline */
+    .timeline-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #f43f8a, #a855f7);
+        flex-shrink: 0;
+        margin-top: 4px;
+        box-shadow: 0 0 8px rgba(244, 63, 138, 0.6);
+    }
+
+    .timeline-line {
+        width: 2px;
+        background: linear-gradient(to bottom, rgba(244, 63, 138, 0.4), transparent);
+        margin: 2px 0 2px 5px;
+        flex-shrink: 0;
+    }
+
+    /* CTA button pulse */
+    @keyframes ctaPulse {
+
+        0%,
+        100% {
+            box-shadow: 0 0 0 0 rgba(244, 63, 138, 0.5);
+        }
+
+        50% {
+            box-shadow: 0 0 0 18px rgba(244, 63, 138, 0);
+        }
+    }
+
+    .cta-pulse {
+        animation: ctaPulse 2.2s ease-out infinite;
+    }
+
+    /* Badge shimmer */
+    @keyframes shimmer {
+        0% {
+            background-position: -200% center;
+        }
+
+        100% {
+            background-position: 200% center;
+        }
+    }
+
+    .shimmer-badge {
+        background: linear-gradient(90deg, rgba(244, 63, 138, 0.15) 25%, rgba(244, 63, 138, 0.35) 50%, rgba(244, 63, 138, 0.15) 75%);
+        background-size: 200% auto;
+        animation: shimmer 3s linear infinite;
+    }
+
+    /* Scroll reveal */
+    .reveal {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Ribbon */
+    .ribbon {
+        background: linear-gradient(90deg, #f43f8a, #a855f7, #fbbf24);
+        height: 3px;
+        width: 100%;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- ── HERO ──────────────────────────────────────────── -->
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden px-6 md:px-12 pt-24 pb-16"
+    style="background: radial-gradient(ellipse at 50% 0%, rgba(244,63,138,0.12) 0%, #0a0f1e 60%);">
+
+    <div class="stars-layer"></div>
+    <div class="orb1"></div>
+    <div class="orb2"></div>
+    <div class="orb3"></div>
+
+    <div class="max-w-5xl mx-auto text-center relative z-10">
+
+        <!-- Floating badge -->
+        <div
+            class="inline-flex items-center gap-2.5 px-5 py-2 rounded-full shimmer-badge border border-rose-500/30 text-sm font-semibold text-pink-300 mb-8 animate-fade-in">
+            <span class="text-lg">♀</span> International Women's Day • March 8–9, 2026
+        </div>
+
+        <!-- Headline -->
+        <h1 class="text-5xl sm:text-6xl md:text-7xl font-black leading-tight mb-6 animate-slide-up">
+            <span class="rose-gradient-text">Generative AI</span><br />
+            <span class="text-white">&amp; Prompt Engineering</span><br />
+            <span class="text-slate-300 text-4xl sm:text-5xl font-bold">for Women</span>
+        </h1>
+
+        <!-- Sub headline -->
+        <p class="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed animate-fade-in">
+            A <strong class="text-white">2-day hands-on training</strong> designed to equip women with
+            the power of Generative AI tools and advanced Prompt Engineering — because the future is built by
+            <strong class="text-pink-400">all of us</strong>.
+        </p>
+
+        <!-- CTA -->
+        <div class="flex flex-wrap gap-4 justify-center mb-14 animate-fade-in">
+            <a href="https://paystack.shop/pay/generative-ai-prompt-engrng" target="_blank" rel="noopener noreferrer"
+                id="register-btn"
+                class="cta-pulse inline-flex items-center gap-3 px-10 py-4 rounded-full text-white text-lg font-black transition-all duration-200 hover:scale-105 hover:opacity-90"
+                style="background: linear-gradient(135deg, #f43f8a 0%, #a855f7 60%, #fbbf24 100%);">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                </svg>
+                Register Now — ₦1,000 →
+            </a>
+            <a href="#schedule"
+                class="inline-flex items-center gap-2 px-8 py-4 rounded-full glass-card border border-white/10 text-white font-semibold hover:border-pink-500/50 hover:bg-pink-500/10 transition-all duration-200">
+                View Schedule
+            </a>
+        </div>
+
+        <!-- Stats row -->
+        <div class="flex flex-wrap justify-center gap-10 animate-fade-in">
+            {% for val, label, icon in [('2', 'Days of Training', '📅'), ('₦1,000', 'Fee', '🎁'), ('100%',
+            'Hands-On', '💻'), ('All Levels', 'Welcome', '🌸')] %}
+            <div class="text-center">
+                <p class="text-3xl font-black rose-gradient-text">{{ val }}</p>
+                <p class="text-slate-400 text-xs mt-1">{{ icon }} {{ label }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Bottom ribbon -->
+    <div class="ribbon absolute bottom-0 left-0"></div>
+</section>
+
+
+<!-- ── COUNTDOWN ─────────────────────────────────────── -->
+<section class="py-16 px-6 md:px-12 relative overflow-hidden" style="background: rgba(244,63,138,0.04);">
+    <div class="max-w-3xl mx-auto text-center reveal">
+        <p class="text-pink-400 font-semibold text-sm uppercase tracking-widest mb-3">⏳ Event Countdown</p>
+        <h2 class="text-3xl md:text-4xl font-black text-white mb-10">
+            It starts in <span class="rose-gradient-text" id="countdown-label">…</span>
+        </h2>
+        <div class="flex flex-wrap items-center justify-center gap-4" id="countdown-timer">
+            <div class="countdown-box">
+                <p class="text-4xl font-black text-white" id="cd-days">--</p>
+                <p class="text-pink-400 text-xs font-semibold uppercase mt-1">Days</p>
+            </div>
+            <span class="text-3xl text-pink-400 font-black">:</span>
+            <div class="countdown-box">
+                <p class="text-4xl font-black text-white" id="cd-hours">--</p>
+                <p class="text-pink-400 text-xs font-semibold uppercase mt-1">Hours</p>
+            </div>
+            <span class="text-3xl text-pink-400 font-black">:</span>
+            <div class="countdown-box">
+                <p class="text-4xl font-black text-white" id="cd-mins">--</p>
+                <p class="text-pink-400 text-xs font-semibold uppercase mt-1">Minutes</p>
+            </div>
+            <span class="text-3xl text-pink-400 font-black">:</span>
+            <div class="countdown-box">
+                <p class="text-4xl font-black text-white" id="cd-secs">--</p>
+                <p class="text-pink-400 text-xs font-semibold uppercase mt-1">Seconds</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ── ABOUT THE EVENT ───────────────────────────────── -->
+<section class="py-24 px-6 md:px-12">
+    <div class="max-w-7xl mx-auto">
+
+        <div class="text-center mb-16 reveal">
+            <span class="inline-block text-pink-400 font-semibold text-sm uppercase tracking-widest mb-3">About the
+                Event</span>
+            <h2 class="text-4xl md:text-5xl font-black text-white">
+                Why <span class="rose-gradient-text">This Training?</span>
+            </h2>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+            {% for icon, title, body in [
+            ('🤖', 'Generative AI Basics', 'Understand how large language models work, what they can do, and how to
+            harness them for real-world tasks — no prior AI experience needed.'),
+            ('✍️', 'Prompt Engineering Mastery', 'Learn structured prompting techniques — zero-shot, few-shot,
+            chain-of-thought — and walk away writing prompts that actually work.'),
+            ('💼', 'Career-Ready Skills', 'Leave with practical AI skills you can immediately apply in your career,
+            business, or personal projects in a world driven by AI.'),
+            ] %}
+            <div class="rose-glass rounded-2xl p-7 hover:scale-[1.02] transition-all duration-300 reveal">
+                <div class="text-4xl mb-4">{{ icon }}</div>
+                <h3 class="text-white font-bold text-xl mb-3">{{ title }}</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">{{ body }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+<!-- ── SCHEDULE ──────────────────────────────────────── -->
+<section id="schedule" class="py-24 px-6 md:px-12" style="background: rgba(168,85,247,0.04);">
+    <div class="max-w-5xl mx-auto">
+
+        <div class="text-center mb-16 reveal">
+            <span class="inline-block text-pink-400 font-semibold text-sm uppercase tracking-widest mb-3">📅
+                Programme</span>
+            <h2 class="text-4xl md:text-5xl font-black text-white">
+                2-Day <span class="rose-gradient-text">Schedule</span>
+            </h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+
+            <!-- Day 1 -->
+            <div class="grad-border reveal">
+                <div class="grad-border-inner p-7 h-full">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-xl flex items-center justify-center text-2xl"
+                            style="background: rgba(244,63,138,0.15);">🌸</div>
+                        <div>
+                            <p class="text-pink-400 text-xs font-semibold uppercase tracking-wider">Day 1 — March 8,
+                                2026</p>
+                            <p class="text-white font-bold text-lg">Foundations of Generative AI</p>
+                        </div>
+                    </div>
+                    <div class="space-y-5">
+                        {% for time, session in [
+                        ('1.', 'Welcome & Icebreaker 🎉'),
+                        ('2.', 'What is Generative AI? Core concepts & how LLMs work'),
+                        ('3.', 'Hands-on: Exploring ChatGPT, Gemini & Claude'),
+                        ('4.', 'Break session'),
+                        ('5.', 'Introduction to Prompt Engineering'),
+                        ('6.', 'Live Practice: Your First Powerful Prompts'),
+                        ('7.', 'Q&A / Open Discussion'),
+                        ] %}
+                        <div class="flex gap-4">
+                            <div class="flex flex-col items-center">
+                                <div class="timeline-dot"></div>
+                                {% if not loop.last %}<div class="timeline-line h-10"></div>{% endif %}
+                            </div>
+                            <div class="-mt-1">
+                                <p class="text-pink-400 text-xs font-semibold">{{ time }}</p>
+                                <p class="text-slate-300 text-sm font-medium">{{ session }}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day 2 -->
+            <div class="grad-border reveal">
+                <div class="grad-border-inner p-7 h-full">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-xl flex items-center justify-center text-2xl"
+                            style="background: rgba(168,85,247,0.15);">⚡</div>
+                        <div>
+                            <p class="text-purple-400 text-xs font-semibold uppercase tracking-wider">Day 2 — March 9,
+                                2026</p>
+                            <p class="text-white font-bold text-lg">Advanced Prompting & Real-World Use</p>
+                        </div>
+                    </div>
+                    <div class="space-y-5">
+                        {% for time, session in [
+                        ('1.', 'Recap'),
+                        ('2.', 'Advanced Prompt Techniques: CoT, Few-Shot & Role Prompting'),
+                        ('3.', 'AI Tools for Productivity, Business & Creativity'),
+                        ('4.', 'Break session'),
+                        ('5.', 'Group Project: Solve a Real Problem with AI'),
+                        ('6.', 'Presentations & Peer Feedback'),
+                        ('7.', 'Certificates, Closing & Networking 🏅'),
+                        ] %}
+                        <div class="flex gap-4">
+                            <div class="flex flex-col items-center">
+                                <div class="timeline-dot" style="background: linear-gradient(135deg,#a855f7,#fbbf24);">
+                                </div>
+                                {% if not loop.last %}<div class="timeline-line h-10"></div>{% endif %}
+                            </div>
+                            <div class="-mt-1">
+                                <p class="text-purple-400 text-xs font-semibold">{{ time }}</p>
+                                <p class="text-slate-300 text-sm font-medium">{{ session }}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ── WHAT YOU'LL GAIN ──────────────────────────────── -->
+<section class="py-24 px-6 md:px-12">
+    <div class="max-w-7xl mx-auto">
+
+        <div class="text-center mb-16 reveal">
+            <span class="inline-block text-pink-400 font-semibold text-sm uppercase tracking-widest mb-3">✨
+                Outcomes</span>
+            <h2 class="text-4xl md:text-5xl font-black text-white">
+                What You'll <span class="rose-gradient-text">Walk Away With</span>
+            </h2>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {% for icon, point in [
+            ('🧠', 'Deep understanding of how Generative AI works'),
+            ('✍️', 'Mastery of practical prompt engineering techniques'),
+            ('🛠️', 'Hands-on experience with leading AI tools'),
+            ('📜', 'Certificate of Participation'),
+            ('🌍', 'Access to a growing community of women in tech'),
+            ('🚀', 'Actionable AI skills to accelerate your career'),
+            ] %}
+            <div class="flex items-start gap-4 rose-glass rounded-2xl p-5 hover:scale-[1.02] transition-all reveal">
+                <span class="text-2xl">{{ icon }}</span>
+                <p class="text-slate-300 text-sm font-medium leading-relaxed">{{ point }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+<!-- ── TRAINER BIO ────────────────────────────────────── -->
+<section class="py-24 px-6 md:px-12" style="background: rgba(244,63,138,0.04);">
+    <div class="max-w-4xl mx-auto">
+        <div class="grad-border reveal">
+            <div class="grad-border-inner">
+                <div class="p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 text-center md:text-left">
+                    <div class="flex-shrink-0">
+                        <div class="w-28 h-28 rounded-full overflow-hidden ring-4 shadow-xl"
+                            style="ring-color: rgba(244,63,138,0.4); box-shadow: 0 0 30px rgba(244,63,138,0.3);">
+                            <img src="{{ url_for('static', filename='images/Sam.png') }}" alt="Samuel Seye – Trainer"
+                                class="w-full h-full object-cover object-top" />
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-pink-400 text-xs font-semibold uppercase tracking-widest mb-2">👨‍🏫 Your Trainer
+                        </p>
+                        <h3 class="text-white font-black text-2xl mb-2">Samuel Seye</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                            Software Developer, Python specialist, and experienced coding instructor passionate about
+                            making technology accessible — especially for underrepresented groups. Samuel has trained
+                            dozens of students and professionals across Nigeria in modern software development and AI
+                            tools.
+                        </p>
+                        <div class="flex flex-wrap gap-2 justify-center md:justify-start">
+                            {% for tag in ['Python', 'Flask', 'AI Tools', 'Coding Instructor', 'Fullstack Dev'] %}
+                            <span class="px-3 py-1 rounded-full text-xs font-semibold text-pink-300"
+                                style="background: rgba(244,63,138,0.12); border: 1px solid rgba(244,63,138,0.25);">{{
+                                tag }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ── FAQ ───────────────────────────────────────────── -->
+<section class="py-24 px-6 md:px-12">
+    <div class="max-w-3xl mx-auto">
+        <div class="text-center mb-16 reveal">
+            <span class="inline-block text-pink-400 font-semibold text-sm uppercase tracking-widest mb-3">❓ FAQ</span>
+            <h2 class="text-4xl md:text-5xl font-black text-white">
+                Common <span class="rose-gradient-text">Questions</span>
+            </h2>
+        </div>
+        <div class="space-y-4" id="faq-list">
+            {% for q, a in [
+            ('Who can attend?', 'This training is exclusively designed for women of all backgrounds and experience
+            levels — from absolute beginners to working professionals looking to integrate AI into their work.'),
+            ('Is it Expensive?', 'Nope! It is just ₦1000 only. No Extra charges. Just bring your laptop and an eagerness to
+            learn.'),
+            ('Do I need programming skills?', 'Not at all. The training starts from the very basics of AI. All you need
+            is a device with internet access.'),
+            ('Will I get a certificate?', 'Yes! Every participant who completes both days will receive a digital
+            Certificate of Participation.'),
+            ('Is it online or in-person?', 'It is online. You can contact the Instructor you prefer a Physical class in-person'),
+            ] %}
+            <div class="rose-glass rounded-2xl overflow-hidden reveal">
+                <button class="faq-btn w-full text-left flex items-center justify-between px-6 py-5 focus:outline-none"
+                    aria-expanded="false">
+                    <span class="text-white font-semibold text-sm md:text-base">{{ q }}</span>
+                    <svg class="faq-icon w-5 h-5 text-pink-400 flex-shrink-0 transition-transform duration-300"
+                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div class="faq-body hidden px-6 pb-5">
+                    <p class="text-slate-400 text-sm leading-relaxed">{{ a }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+<!-- ── FINAL CTA ─────────────────────────────────────── -->
+<section class="py-24 px-6 md:px-12 relative overflow-hidden"
+    style="background: radial-gradient(ellipse at 50% 50%, rgba(244,63,138,0.15) 0%, transparent 70%);">
+    <div class="max-w-3xl mx-auto text-center reveal">
+        <div class="text-6xl mb-6">🌸</div>
+        <h2 class="text-4xl md:text-5xl font-black text-white mb-6">
+            Ready to step into the<br />
+            <span class="rose-gradient-text">age of AI?</span>
+        </h2>
+        <p class="text-slate-400 text-lg mb-10 leading-relaxed">
+            Seats are limited. Don't miss this incredible opportunity to learn, grow, and connect
+            with other amazing women on International Women's Day.
+        </p>
+        <a href="https://paystack.shop/pay/generative-ai-prompt-engrng" target="_blank" rel="noopener noreferrer"
+            class="cta-pulse inline-flex items-center gap-3 px-12 py-5 rounded-full text-white text-xl font-black transition-all duration-200 hover:scale-105 hover:opacity-90"
+            style="background: linear-gradient(135deg, #f43f8a 0%, #a855f7 60%, #fbbf24 100%);">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+            </svg>
+            Claim Your Spot Now →
+        </a>
+        <p class="text-slate-500 text-sm mt-6">🌍 Open to all women — very cheap, no hidden fee or charges.</p>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    // ── Countdown to March 8, 2026 9:00 AM ──
+    const eventDate = new Date('2026-03-08T09:00:00');
+    function updateCountdown() {
+        const now = new Date();
+        const diff = eventDate - now;
+        if (diff <= 0) {
+            document.getElementById('countdown-label').textContent = 'now! 🎉';
+            ['cd-days', 'cd-hours', 'cd-mins', 'cd-secs'].forEach(id => document.getElementById(id).textContent = '00');
+            return;
+        }
+        const d = Math.floor(diff / 86400000);
+        const h = Math.floor((diff % 86400000) / 3600000);
+        const m = Math.floor((diff % 3600000) / 60000);
+        const s = Math.floor((diff % 60000) / 1000);
+        document.getElementById('cd-days').textContent = String(d).padStart(2, '0');
+        document.getElementById('cd-hours').textContent = String(h).padStart(2, '0');
+        document.getElementById('cd-mins').textContent = String(m).padStart(2, '0');
+        document.getElementById('cd-secs').textContent = String(s).padStart(2, '0');
+        document.getElementById('countdown-label').textContent = d + ' days';
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // ── Scroll reveal ──
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // ── FAQ accordion ──
+    document.querySelectorAll('.faq-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const body = btn.nextElementSibling;
+            const icon = btn.querySelector('.faq-icon');
+            const isOpen = !body.classList.contains('hidden');
+            // Close all
+            document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
+            document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = '');
+            document.querySelectorAll('.faq-btn').forEach(b => b.setAttribute('aria-expanded', 'false'));
+            if (!isOpen) {
+                body.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+                btn.setAttribute('aria-expanded', 'true');
+            }
+        });
+    });
+</script>
+
+{% endblock %}
+
+
+
+
+
+

@@ -1,0 +1,877 @@
+{% extends "base.html" %}
+
+{% block title %}Advanced Generative AI & Prompt Engineering | SMI Ventures{% endblock %}
+
+{% block extra_head %}
+<style>
+    /* ── Cyber / Indigo / Cyan / Gold palette ── */
+    :root {
+        --ai-blue: #3b82f6;
+        --ai-cyan: #06b6d4;
+        --ai-violet: #8b5cf6;
+        --ai-gold: #f59e0b;
+        --ai-green: #10b981;
+    }
+
+    /* ── Gradient text ── */
+    .ai-gradient-text {
+        background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 40%, #8b5cf6 80%, #f59e0b 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .ai-gradient-text-2 {
+        background: linear-gradient(90deg, #3b82f6 0%, #06b6d4 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    /* ── Glass card specialised ── */
+    .ai-glass {
+        background: rgba(59, 130, 246, 0.05);
+        backdrop-filter: blur(16px);
+        border: 1px solid rgba(59, 130, 246, 0.18);
+    }
+
+    .ai-glass-cyan {
+        background: rgba(6, 182, 212, 0.05);
+        backdrop-filter: blur(16px);
+        border: 1px solid rgba(6, 182, 212, 0.2);
+    }
+
+    /* ── Animated gradient border ── */
+    .ai-grad-border {
+        position: relative;
+        border-radius: 1.25rem;
+        padding: 2px;
+        background: linear-gradient(135deg, #06b6d4, #3b82f6, #8b5cf6, #f59e0b, #06b6d4);
+        background-size: 300% 300%;
+        animation: aiBorderSpin 5s ease infinite;
+    }
+
+    .ai-grad-border-inner {
+        background: #080d1c;
+        border-radius: calc(1.25rem - 2px);
+        height: 100%;
+    }
+
+    @keyframes aiBorderSpin {
+        0%   { background-position: 0% 50%; }
+        50%  { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    /* ── Floating orbs ── */
+    .ai-orb1 {
+        position: absolute; width: 500px; height: 500px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(59,130,246,0.14) 0%, transparent 70%);
+        top: -120px; left: -100px; filter: blur(50px);
+        animation: aiFloat 8s ease-in-out infinite;
+    }
+    .ai-orb2 {
+        position: absolute; width: 380px; height: 380px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(6,182,212,0.13) 0%, transparent 70%);
+        top: 30%; right: -80px; filter: blur(45px);
+        animation: aiFloat 10s ease-in-out infinite reverse;
+    }
+    .ai-orb3 {
+        position: absolute; width: 300px; height: 300px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(139,92,246,0.12) 0%, transparent 70%);
+        bottom: 80px; left: 40%; filter: blur(40px);
+        animation: aiFloat 7s ease-in-out infinite 1.5s;
+    }
+    .ai-orb4 {
+        position: absolute; width: 220px; height: 220px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(245,158,11,0.1) 0%, transparent 70%);
+        bottom: 200px; right: 15%; filter: blur(35px);
+        animation: aiFloat 9s ease-in-out infinite 0.5s;
+    }
+
+    @keyframes aiFloat {
+        0%, 100% { transform: translateY(0px) scale(1); }
+        50%       { transform: translateY(-28px) scale(1.05); }
+    }
+
+    /* ── Star / particle layer ── */
+    .ai-stars {
+        position: absolute; inset: 0; overflow: hidden; pointer-events: none;
+        background-image:
+            radial-gradient(circle, rgba(255,255,255,0.75) 1px, transparent 1px),
+            radial-gradient(circle, rgba(6,182,212,0.6) 1px, transparent 1px),
+            radial-gradient(circle, rgba(139,92,246,0.5) 1px, transparent 1px),
+            radial-gradient(circle, rgba(245,158,11,0.4) 1px, transparent 1px);
+        background-size: 200px 200px, 160px 160px, 280px 280px, 320px 320px;
+        background-position: 15px 25px, 90px 70px, 60px 140px, 200px 50px;
+        animation: aiTwinkle 9s ease-in-out infinite;
+    }
+    @keyframes aiTwinkle {
+        0%, 100% { opacity: 0.35; }
+        50%       { opacity: 1; }
+    }
+
+    /* ── Grid overlay ── */
+    .ai-grid {
+        position: absolute; inset: 0; pointer-events: none;
+        background-image:
+            linear-gradient(rgba(59,130,246,0.06) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(59,130,246,0.06) 1px, transparent 1px);
+        background-size: 50px 50px;
+    }
+
+    /* ── CTA pulse ── */
+    @keyframes aiCtaPulse {
+        0%, 100% { box-shadow: 0 0 0 0 rgba(6,182,212,0.55); }
+        50%       { box-shadow: 0 0 0 20px rgba(6,182,212,0); }
+    }
+    .ai-cta-pulse { animation: aiCtaPulse 2.4s ease-out infinite; }
+
+    /* ── Shimmer badge ── */
+    @keyframes aiShimmer {
+        0%   { background-position: -200% center; }
+        100% { background-position: 200% center; }
+    }
+    .ai-shimmer-badge {
+        background: linear-gradient(90deg,
+            rgba(6,182,212,0.12) 25%,
+            rgba(59,130,246,0.30) 50%,
+            rgba(6,182,212,0.12) 75%);
+        background-size: 200% auto;
+        animation: aiShimmer 3s linear infinite;
+    }
+
+    /* ── Scroll reveal ── */
+    .reveal {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: opacity 0.85s ease, transform 0.85s ease;
+    }
+    .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* ── Ribbon ── */
+    .ai-ribbon {
+        background: linear-gradient(90deg, #06b6d4, #3b82f6, #8b5cf6, #f59e0b);
+        height: 3px; width: 100%;
+    }
+
+    /* ── Module card hover glow ── */
+    .module-card {
+        transition: all 0.35s ease;
+        position: relative;
+        overflow: hidden;
+    }
+    .module-card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        opacity: 0;
+        background: radial-gradient(circle at 50% 0%, rgba(6,182,212,0.15) 0%, transparent 60%);
+        transition: opacity 0.35s ease;
+    }
+    .module-card:hover::before { opacity: 1; }
+    .module-card:hover {
+        transform: translateY(-6px) scale(1.015);
+        border-color: rgba(6,182,212,0.4) !important;
+        box-shadow: 0 20px 50px rgba(6,182,212,0.12);
+    }
+
+    /* ── Timeline dot ── */
+    .ai-timeline-dot {
+        width: 13px; height: 13px; border-radius: 50%;
+        background: linear-gradient(135deg, #06b6d4, #3b82f6);
+        flex-shrink: 0; margin-top: 4px;
+        box-shadow: 0 0 10px rgba(6,182,212,0.7);
+    }
+    .ai-timeline-line {
+        width: 2px;
+        background: linear-gradient(to bottom, rgba(6,182,212,0.4), transparent);
+        margin: 2px 0 2px 5.5px; flex-shrink: 0;
+    }
+
+    /* ── FAQ ── */
+    .ai-faq-glass {
+        background: rgba(59,130,246,0.04);
+        backdrop-filter: blur(14px);
+        border: 1px solid rgba(59,130,246,0.15);
+    }
+
+    /* ── Number badge ── */
+    .num-badge {
+        width: 42px; height: 42px; border-radius: 50%;
+        background: linear-gradient(135deg, #06b6d4, #3b82f6);
+        display: flex; align-items: center; justify-content: center;
+        font-weight: 900; font-size: 1rem; color: #fff;
+        flex-shrink: 0;
+        box-shadow: 0 0 16px rgba(6,182,212,0.45);
+    }
+
+    /* ── Price ring ── */
+    .price-ring {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .price-ring::before {
+        content: '';
+        position: absolute;
+        inset: -6px;
+        border-radius: 50%;
+        background: conic-gradient(#06b6d4, #3b82f6, #8b5cf6, #f59e0b, #06b6d4);
+        animation: spin 6s linear infinite;
+        z-index: -1;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- ── HERO ──────────────────────────────────────────────── -->
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden px-6 md:px-12 pt-28 pb-20"
+    style="background-image: linear-gradient(to bottom, rgba(8, 13, 28, 0.85), rgba(8, 13, 28, 0.95)), url('/static/images/heroimage.jpg'); background-size: cover; background-position: center; background-attachment: fixed;">
+
+    <div class="ai-stars"></div>
+    <div class="ai-grid"></div>
+    <div class="ai-orb1"></div>
+    <div class="ai-orb2"></div>
+    <div class="ai-orb3"></div>
+    <div class="ai-orb4"></div>
+
+    <div class="max-w-5xl mx-auto text-center relative z-10">
+
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-2.5 px-5 py-2 rounded-full ai-shimmer-badge border border-cyan-500/30 text-sm font-bold text-cyan-300 mb-8 animate-fade-in">
+            <span class="relative flex h-2.5 w-2.5">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-cyan-400"></span>
+            </span>
+            🚀 SMI Ventures · Professional AI Training Programme
+        </div>
+
+        <!-- Headline -->
+        <h1 class="text-5xl sm:text-6xl md:text-7xl font-black leading-tight mb-6 animate-slide-up">
+            <span class="ai-gradient-text">Advanced Generative AI</span><br />
+            <span class="text-white">&amp; Prompt Engineering</span>
+        </h1>
+
+        <!-- Sub headline -->
+        <p class="text-slate-300 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed animate-fade-in font-light">
+            A comprehensive, hands-on training that equips you with cutting-edge AI skills—from advanced prompt frameworks to full business automation and branding.
+            <strong class="text-white font-semibold block mt-2">Transform the way you work. Forever.</strong>
+        </p>
+
+        <!-- CTA buttons -->
+        <div class="flex flex-wrap gap-4 justify-center mb-16 animate-fade-in">
+            <a href="https://paystack.shop/pay/xsnf03683x" target="_blank" rel="noopener noreferrer"
+                id="register-btn"
+                class="ai-cta-pulse inline-flex items-center gap-3 px-10 py-4 rounded-full text-white text-lg font-black transition-all duration-200 hover:scale-105 hover:opacity-90"
+                style="background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 50%, #8b5cf6 100%);">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                </svg>
+                Register Now — ₦10,000
+            </a>
+            <a href="#modules"
+                class="inline-flex items-center gap-2 px-8 py-4 rounded-full glass-card border border-white/10 text-white font-semibold hover:border-cyan-500/50 hover:bg-cyan-500/10 transition-all duration-200">
+                Explore Modules
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+            </a>
+        </div>
+
+        <!-- Stats row -->
+        <div class="flex flex-wrap justify-center gap-10 md:gap-16 animate-fade-in">
+            {% for val, label, icon in [
+                ('5', 'Core Modules', '📚'),
+                ('₦10,000', 'Training Fee', '💳'),
+                ('100%', 'Hands-On', '💻'),
+                ('All Levels', 'Welcome', '🌟')
+            ] %}
+            <div class="text-center">
+                <p class="text-3xl font-black ai-gradient-text">{{ val }}</p>
+                <p class="text-slate-400 text-xs mt-1 font-medium">{{ icon }} {{ label }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="ai-ribbon absolute bottom-0 left-0"></div>
+</section>
+
+
+<!-- ── WHY THIS TRAINING ──────────────────────────────── -->
+<section class="py-24 px-6 md:px-12" style="background: rgba(59,130,246,0.03);">
+    <div class="max-w-7xl mx-auto">
+
+        <div class="text-center mb-16 reveal">
+            <span class="inline-block text-cyan-400 font-semibold text-sm uppercase tracking-widest mb-3">Why Attend</span>
+            <h2 class="text-4xl md:text-5xl font-black text-white">
+                Why <span class="ai-gradient-text">This Training?</span>
+            </h2>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+            {% for icon, title, body in [
+                ('🤖', 'Master Generative AI', 'Go beyond the basics. Understand how large language models work at a deep level and harness them to solve complex real-world problems with precision.'),
+                ('⚙️', 'Automate Your Business', 'Learn to deploy AI-powered automation systems that save time, reduce cost, and dramatically multiply your output — whether in sales, marketing, or operations.'),
+                ('🏆', 'Stand Out in the Market', 'Build an unfair advantage. Certified AI practitioners are now among the most sought-after professionals globally. This training positions you at the frontier.'),
+            ] %}
+            <div class="ai-glass module-card rounded-2xl p-7 reveal">
+                <div class="text-4xl mb-4">{{ icon }}</div>
+                <h3 class="text-white font-bold text-xl mb-3">{{ title }}</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">{{ body }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+<!-- ── MODULES ────────────────────────────────────────── -->
+<section id="modules" class="py-24 px-6 md:px-12">
+    <div class="max-w-7xl mx-auto">
+
+        <div class="text-center mb-16 reveal">
+            <span class="inline-block text-cyan-400 font-semibold text-sm uppercase tracking-widest mb-3">📚 Curriculum</span>
+            <h2 class="text-4xl md:text-5xl font-black text-white">
+                Training <span class="ai-gradient-text">Modules</span>
+            </h2>
+            <p class="text-slate-400 mt-4 max-w-xl mx-auto">Five power-packed modules covering everything from advanced prompt techniques to complete business transformation with AI.</p>
+        </div>
+
+        <div class="space-y-6">
+
+            {% set modules = [
+                (1, '🧠', 'Advanced Prompt Engineering Techniques & Frameworks',
+                    'ai-blue',
+                    [
+                        'Chain-of-Thought (CoT) & Tree-of-Thought (ToT) prompting',
+                        'Zero-shot, one-shot & few-shot prompting at scale',
+                        'Role & persona prompting for specialised outputs',
+                        'Prompt chaining & multi-step reasoning',
+                        'ReAct & Self-consistency frameworks',
+                        'Iterative prompt refinement & testing workflows',
+                    ],
+                    'Master the science and art of communicating with AI models. You\'ll leave with a repeatable prompt engineering process that delivers consistent, high-quality results every time.'
+                ),
+                (2, '💼', 'AI for Business, Productivity & Automation',
+                    'ai-cyan',
+                    [
+                        'AI-powered project management & scheduling',
+                        'Email, report & proposal automation',
+                        'Sales pipeline optimisation with AI',
+                        'Customer support automation (chatbots & flows)',
+                        'Data extraction & analysis at scale',
+                        'Building no-code AI automation workflows (Zapier, Make)',
+                    ],
+                    'Dramatically cut busywork and amplify your output. Learn exactly how to integrate AI into your daily business operations so your tasks get done 5× faster.'
+                ),
+                (3, '🛠️', 'AI Tools Ecosystem',
+                    'ai-violet',
+                    [
+                        'ChatGPT — advanced conversation & task automation',
+                        'Gemini / Veo3 — AI generation & video creation',
+                        'Suno — AI music & audio generation',
+                        'Gamma — AI-powered presentations & documents',
+                        'Bass44 — AI-driven business solutions',
+                        'Antigravity — cutting-edge agentic AI coding',
+                    ],
+                    'Navigate the rapidly expanding AI tools landscape with confidence. Understand which tool to use for which job — and how to combine them for maximum impact.'
+                ),
+                (4, '🎨', 'AI Content Creation & Full Business Branding',
+                    'ai-gold',
+                    [
+                        'Generating scroll-stopping social media content at scale',
+                        'AI-powered copywriting for ads, landing pages & emails',
+                        'Logo, brand identity & visual asset creation with AI',
+                        'Video scripts, voiceovers & short-form video production',
+                        'Building a complete content calendar with AI',
+                        'Personal brand positioning using AI insights',
+                    ],
+                    'Create an entire brand identity and a month\'s worth of content in days, not weeks. Learn to produce professional-grade marketing materials entirely with AI tools.'
+                ),
+                (5, '📊', 'AI Business Analysis',
+                    'ai-green',
+                    [
+                        'AI-driven market research & competitor analysis',
+                        'Sentiment analysis & customer insight extraction',
+                        'Financial forecasting & scenario modelling with AI',
+                        'Building business intelligence dashboards with AI',
+                        'SWOT/PESTLE analysis accelerated by AI',
+                        'Decision-making frameworks powered by AI data',
+                    ],
+                    'Transform raw data into actionable business intelligence. Learn how AI can surface insights that would take a traditional analyst team weeks to compile — in minutes.'
+                ),
+            ] %}
+
+            {% for num, icon, title, color_key, points, summary in modules %}
+            <div class="ai-grad-border reveal">
+                <div class="ai-grad-border-inner">
+                    <div class="p-8 md:p-10">
+                        <!-- Module header -->
+                        <div class="flex flex-col md:flex-row md:items-start gap-6 mb-6">
+                            <div class="flex items-center gap-4 flex-shrink-0">
+                                <div class="num-badge">{{ num }}</div>
+                                <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl"
+                                    style="background: rgba(6,182,212,0.12); border: 1px solid rgba(6,182,212,0.2);">
+                                    {{ icon }}
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-cyan-400 text-xs font-semibold uppercase tracking-widest mb-1">Module {{ num }}</p>
+                                <h3 class="text-white font-black text-xl md:text-2xl mb-2">{{ title }}</h3>
+                                <p class="text-slate-400 text-sm leading-relaxed">{{ summary }}</p>
+                            </div>
+                        </div>
+                        <!-- Points grid -->
+                        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                            {% for point in points %}
+                            <div class="flex items-start gap-3 ai-glass-cyan rounded-xl px-4 py-3">
+                                <span class="text-cyan-400 mt-0.5 flex-shrink-0">✦</span>
+                                <span class="text-slate-300 text-sm font-medium leading-snug">{{ point }}</span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</section>
+
+
+<!-- ── WHAT YOU GAIN ──────────────────────────────────── -->
+<section class="py-24 px-6 md:px-12" style="background: rgba(6,182,212,0.03);">
+    <div class="max-w-7xl mx-auto">
+
+        <div class="text-center mb-16 reveal">
+            <span class="inline-block text-cyan-400 font-semibold text-sm uppercase tracking-widest mb-3">✨ Outcomes</span>
+            <h2 class="text-4xl md:text-5xl font-black text-white">
+                What You'll <span class="ai-gradient-text">Walk Away With</span>
+            </h2>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {% for icon, point in [
+                ('🧠', 'Deep mastery of advanced prompt engineering techniques'),
+                ('⚙️', 'Working AI automation systems for your business'),
+                ('🛠️', 'Hands-on experience with 15+ leading AI tools'),
+                ('📜', 'Certificate of Completion'),
+                ('🚀', 'A complete AI-powered content & branding system'),
+                ('📊', 'AI-driven business analysis skills'),
+                ('🌍', 'Access to SMI Ventures AI community & resources'),
+                ('💡', 'Actionable playbooks for every module covered'),
+                ('🎯', 'A personalised AI strategy for your career or business'),
+            ] %}
+            <div class="flex items-start gap-4 ai-glass module-card rounded-2xl p-5 reveal">
+                <span class="text-2xl flex-shrink-0">{{ icon }}</span>
+                <p class="text-slate-300 text-sm font-medium leading-relaxed">{{ point }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+<!-- ── PRICING ────────────────────────────────────────── -->
+<section class="py-24 px-6 md:px-12">
+    <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-14 reveal">
+            <span class="inline-block text-cyan-400 font-semibold text-sm uppercase tracking-widest mb-3">💳 Investment</span>
+            <h2 class="text-4xl md:text-5xl font-black text-white">
+                Training <span class="ai-gradient-text">Fee</span>
+            </h2>
+        </div>
+
+        <div class="ai-grad-border reveal max-w-2xl mx-auto">
+            <div class="ai-grad-border-inner">
+                <div class="p-10 md:p-14 text-center">
+                    <p class="text-cyan-400 font-semibold text-sm uppercase tracking-widest mb-4">Advanced AI Programme</p>
+                    <div class="text-7xl md:text-8xl font-black ai-gradient-text mb-2">₦10,000</div>
+                    <p class="text-slate-400 mb-8 text-sm">One-time payment · Full programme access · Certificate included</p>
+
+                    <ul class="text-left space-y-3 mb-10 max-w-sm mx-auto">
+                        {% for item in [
+                            '5 comprehensive AI modules',
+                            'Practical hands-on exercises',
+                            'Access to all course materials',
+                            'Certificate of Completion',
+                            'SMI Ventures community access',
+                            'Post-training Q&A support',
+                        ] %}
+                        <li class="flex items-center gap-3">
+                            <span class="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0"
+                                style="background: rgba(6,182,212,0.2); border:1px solid rgba(6,182,212,0.4);">
+                                <svg class="w-3 h-3 text-cyan-400" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                </svg>
+                            </span>
+                            <span class="text-slate-300 text-sm font-medium">{{ item }}</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+
+                    <a href="https://paystack.shop/pay/xsnf03683x" target="_blank" rel="noopener noreferrer"
+                        class="ai-cta-pulse inline-flex items-center gap-3 px-12 py-5 rounded-full text-white text-xl font-black transition-all duration-200 hover:scale-105 hover:opacity-90"
+                        style="background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 50%, #8b5cf6 100%);">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                        </svg>
+                        Secure Your Spot Now →
+                    </a>
+
+                    <p class="text-slate-500 text-xs mt-5">🔒 Secured by Paystack · No hidden charges</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ── TRAINER BIO ─────────────────────────────────────── -->
+<section class="py-24 px-6 md:px-12" style="background: rgba(59,130,246,0.03);">
+    <div class="max-w-4xl mx-auto">
+        <div class="ai-grad-border reveal">
+            <div class="ai-grad-border-inner">
+                <div class="p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 text-center md:text-left">
+                    <div class="flex-shrink-0">
+                        <div class="w-32 h-32 rounded-full overflow-hidden ring-4"
+                            style="ring-color: rgba(6,182,212,0.4); box-shadow: 0 0 35px rgba(6,182,212,0.35);">
+                            <img src="{{ url_for('static', filename='images/Sam.png') }}" alt="Samuel Seye – Trainer"
+                                class="w-full h-full object-cover object-top" />
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-cyan-400 text-xs font-semibold uppercase tracking-widest mb-2">👨‍🏫 Your Trainer</p>
+                        <h3 class="text-white font-black text-2xl mb-2">Samuel Seye</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-5">
+                            Software Developer, AI practitioner, and experienced coding instructor passionate about
+                            making cutting-edge technology accessible. Samuel has trained professionals across Nigeria
+                            in modern software development, automation, and generative AI tools — with a results-first,
+                            hands-on teaching approach.
+                        </p>
+                        <div class="flex flex-wrap gap-2 justify-center md:justify-start">
+                            {% for tag in ['Generative AI', 'Prompt Engineering', 'Python', 'Flask', 'AI Automation', 'Business AI', 'Coding Instructor'] %}
+                            <span class="px-3 py-1 rounded-full text-xs font-semibold text-cyan-300"
+                                style="background: rgba(6,182,212,0.1); border: 1px solid rgba(6,182,212,0.25);">
+                                {{ tag }}
+                            </span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- ── TESTIMONIALS ────────────────────────────────────── -->
+<section class="py-24 px-6 md:px-12">
+    <div class="max-w-7xl mx-auto">
+
+        <div class="text-center mb-16 reveal">
+            <span class="inline-block text-cyan-400 font-semibold text-sm uppercase tracking-widest mb-3">⭐ Success Stories</span>
+            <h2 class="text-4xl md:text-5xl font-black text-white">
+                What People <span class="ai-gradient-text">Say About Us</span>
+            </h2>
+            <p class="text-slate-400 mt-4 max-w-xl mx-auto">
+                Real words from real people who've experienced the SMI Ventures training first-hand.
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+
+            {% for quote, name, role, initials in [
+                (
+                    "My experience at the training was a good one. The training was very insightful and well detailed. What I love most was the practical aspect — it was relatable. Thank you SMI 👍",
+                    "Gracia Oluwatominiyi",
+                    "Training Participant",
+                    "GO"
+                ),
+                (
+                    "I had the privilege of taking a course with SMI ICT Training, and it was an excellent experience. The training was practical, well-structured, and delivered with great professionalism. I highly recommend them to anyone looking to build strong ICT skills.",
+                    "Anthony Mayim Okon",
+                    "Training Participant",
+                    "AO"
+                ),
+                (
+                    "It was an impactful moment. I have gained a lot. Thank you to SMI for your efforts — may God take you higher. 🙏",
+                    "Amblessed Jacobs",
+                    "Training Participant",
+                    "AJ"
+                ),
+            ] %}
+            <div class="ai-grad-border reveal">
+                <div class="ai-grad-border-inner">
+                    <div class="p-7 flex flex-col h-full">
+
+                        <!-- Stars -->
+                        <div class="flex gap-1 mb-5">
+                            {% for _ in range(5) %}
+                            <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                            </svg>
+                            {% endfor %}
+                        </div>
+
+                        <!-- Quote icon -->
+                        <svg class="w-8 h-8 text-cyan-500/30 mb-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+                        </svg>
+
+                        <!-- Quote text -->
+                        <p class="text-slate-300 text-sm leading-relaxed flex-1 italic mb-6">
+                            "{{ quote }}"
+                        </p>
+
+                        <!-- Author -->
+                        <div class="flex items-center gap-3 pt-5 border-t border-white/10">
+                            <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-black text-white flex-shrink-0"
+                                style="background: linear-gradient(135deg, #06b6d4, #3b82f6, #8b5cf6);">
+                                {{ initials }}
+                            </div>
+                            <div>
+                                <p class="text-white font-bold text-sm">{{ name }}</p>
+                                <p class="text-cyan-400 text-xs">{{ role }}</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</section>
+
+
+<!-- ── FAQ ──────────────────────────────────────────────── -->
+<section class="py-24 px-6 md:px-12">
+    <div class="max-w-3xl mx-auto">
+        <div class="text-center mb-14 reveal">
+            <span class="inline-block text-cyan-400 font-semibold text-sm uppercase tracking-widest mb-3">❓ FAQ</span>
+            <h2 class="text-4xl md:text-5xl font-black text-white">
+                Common <span class="ai-gradient-text">Questions</span>
+            </h2>
+        </div>
+        <div class="space-y-4" id="faq-list">
+            {% for q, a in [
+                ('Who is this training for?', 'This training is for entrepreneurs, business owners, marketers, students, professionals, and anyone who wants to leverage generative AI to boost productivity, automate tasks, and grow their business — regardless of technical background.'),
+                ('Do I need programming or AI experience?', 'Not at all. The training is designed to be accessible for beginners while being advanced enough to provide real value to experienced users. All you need is a laptop or smartphone with internet access.'),
+                ('Is the training online or in-person?', 'The training is conducted online. You can reach out to the instructor if you prefer an in-person class.'),
+                ('How much does it cost?', 'The training fee is ₦10,000 — a one-time payment for full access to all 5 modules, materials, and your Certificate of Completion.'),
+                ('Will I get a certificate?', 'Yes! Every participant who completes the training will receive a digital Certificate of Completion from SMI Ventures.'),
+                ('What tools will I need?', 'You will need a device with internet access. We will guide you through setting up free accounts for the AI tools used during the training.'),
+            ] %}
+            <div class="ai-faq-glass rounded-2xl overflow-hidden reveal">
+                <button class="faq-btn w-full text-left flex items-center justify-between px-6 py-5 focus:outline-none"
+                    aria-expanded="false">
+                    <span class="text-white font-semibold text-sm md:text-base">{{ q }}</span>
+                    <svg class="faq-icon w-5 h-5 text-cyan-400 flex-shrink-0 transition-transform duration-300"
+                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div class="faq-body hidden px-6 pb-5">
+                    <p class="text-slate-400 text-sm leading-relaxed">{{ a }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+<!-- ── REVIEWS ───────────────────────────────────────────── -->
+<section id="reviews" class="py-24 px-6 md:px-12 relative z-10 border-t border-white/5">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16 reveal">
+            <h2 class="text-3xl md:text-5xl font-black text-white mb-4">
+                What Our <span class="ai-gradient-text">Students Say</span>
+            </h2>
+            <p class="text-slate-400 max-w-2xl mx-auto">Real results from professionals who have transformed their workflow with our GenAI framework.</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <!-- Review 1 -->
+            <div class="ai-glass rounded-2xl p-8 reveal module-card">
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="text-yellow-400 text-xl">★★★★★</span>
+                </div>
+                <p class="text-slate-300 italic mb-6">"Before this training, I spent hours doing repetitive tasks. Now, I have fully automated my content pipeline using the custom prompt chains taught here. Highly recommended!"</p>
+                <div class="flex items-center gap-4 border-t border-white/10 pt-4">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center font-bold text-white">S</div>
+                    <div>
+                        <h4 class="text-white font-bold text-sm">Sarah O.</h4>
+                        <p class="text-cyan-400 text-xs">Digital Marketer</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Review 2 -->
+            <div class="ai-glass rounded-2xl p-8 reveal module-card" style="transition-delay: 100ms;">
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="text-yellow-400 text-xl">★★★★★</span>
+                </div>
+                <p class="text-slate-300 italic mb-6">"The deep dive into OpenAI APIs and agentic workflows completely changed how our agency operates. The ROI on this ₦10,000 course is literally immeasurable."</p>
+                <div class="flex items-center gap-4 border-t border-white/10 pt-4">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-blue-600 flex items-center justify-center font-bold text-white">D</div>
+                    <div>
+                        <h4 class="text-white font-bold text-sm">David M.</h4>
+                        <p class="text-purple-400 text-xs">Tech Founder</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Review 3 -->
+            <div class="ai-glass rounded-2xl p-8 reveal module-card" style="transition-delay: 200ms;">
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="text-yellow-400 text-xl">★★★★★</span>
+                </div>
+                <p class="text-slate-300 italic mb-6">"I had zero coding experience, but the prompt engineering modules were so clear and practical that I was building my own AI assistants by day two."</p>
+                <div class="flex items-center gap-4 border-t border-white/10 pt-4">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center font-bold text-white">E</div>
+                    <div>
+                        <h4 class="text-white font-bold text-sm">Esther A.</h4>
+                        <p class="text-orange-400 text-xs">Operations Manager</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── BLOG ────────────────────────────────────────────── -->
+<section id="blog" class="py-24 px-6 md:px-12 relative z-10 border-t border-white/5 bg-[#080d1c]">
+    <div class="max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-16 reveal">
+            <div>
+                <h2 class="text-3xl md:text-5xl font-black text-white mb-4">
+                    Latest <span class="ai-gradient-text">Insights</span>
+                </h2>
+                <p class="text-slate-400 max-w-xl">Stay updated with the latest in Generative AI, automation strategies, and prompt engineering news.</p>
+            </div>
+            <a href="#" class="hidden md:inline-flex items-center gap-2 text-cyan-400 font-semibold hover:text-white transition-colors mt-4 md:mt-0">
+                View All Articles →
+            </a>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <!-- Blog Post 1 -->
+            <a href="#" class="group block ai-glass rounded-2xl overflow-hidden border border-white/10 hover:border-cyan-500/50 transition-all duration-300 reveal module-card">
+                <div class="h-48 bg-slate-800 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&q=80" alt="AI Core" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-60">
+                    <span class="absolute top-4 right-4 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full z-20">Guide</span>
+                </div>
+                <div class="p-6">
+                    <div class="text-slate-400 text-xs font-medium mb-3">April 12, 2026 · 5 min read</div>
+                    <h3 class="text-xl font-bold text-white mb-3 group-hover:text-cyan-400 transition-colors">Mastering Zero-Shot Prompting in GPT-4</h3>
+                    <p class="text-slate-400 text-sm line-clamp-3">Learn the exact structure needed to consistently extract high-quality outputs from LLMs without providing examples, saving tokens and time.</p>
+                </div>
+            </a>
+
+            <!-- Blog Post 2 -->
+            <a href="#" class="group block ai-glass rounded-2xl overflow-hidden border border-white/10 hover:border-cyan-500/50 transition-all duration-300 reveal module-card" style="transition-delay: 100ms;">
+                <div class="h-48 bg-slate-800 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=600&q=80" alt="AI Network" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-60">
+                    <span class="absolute top-4 right-4 bg-purple-600 text-white text-xs font-bold px-3 py-1 rounded-full z-20">Automation</span>
+                </div>
+                <div class="p-6">
+                    <div class="text-slate-400 text-xs font-medium mb-3">April 5, 2026 · 8 min read</div>
+                    <h3 class="text-xl font-bold text-white mb-3 group-hover:text-cyan-400 transition-colors">Building Autonomous Agents for Customer Support</h3>
+                    <p class="text-slate-400 text-sm line-clamp-3">A deep dive into connecting language models with your internal databases to create self-sufficient support agents that actually resolve tickets.</p>
+                </div>
+            </a>
+
+            <!-- Blog Post 3 -->
+            <a href="#" class="group block ai-glass rounded-2xl overflow-hidden border border-white/10 hover:border-cyan-500/50 transition-all duration-300 reveal module-card" style="transition-delay: 200ms;">
+                <div class="h-48 bg-slate-800 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=600&q=80" alt="Tech Future" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-60">
+                    <span class="absolute top-4 right-4 bg-cyan-600 text-white text-xs font-bold px-3 py-1 rounded-full z-20">News</span>
+                </div>
+                <div class="p-6">
+                    <div class="text-slate-400 text-xs font-medium mb-3">March 28, 2026 · 4 min read</div>
+                    <h3 class="text-xl font-bold text-white mb-3 group-hover:text-cyan-400 transition-colors">Why 90% of Businesses Will Adopt AI by 2027</h3>
+                    <p class="text-slate-400 text-sm line-clamp-3">Recent industry reports show a massive shift in corporate spending towards AI integration. Here's what it means for your career trajectory.</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+
+<!-- ── FINAL CTA ─────────────────────────────────────────── -->
+<section class="py-28 px-6 md:px-12 relative overflow-hidden"
+    style="background: radial-gradient(ellipse at 50% 50%, rgba(6,182,212,0.12) 0%, rgba(59,130,246,0.08) 40%, transparent 70%);">
+
+    <div class="ai-orb1" style="opacity:0.5;"></div>
+    <div class="ai-orb2" style="opacity:0.5;"></div>
+
+    <div class="max-w-3xl mx-auto text-center reveal relative z-10">
+        <div class="text-6xl mb-6">🚀</div>
+        <h2 class="text-4xl md:text-5xl font-black text-white mb-6 leading-tight">
+            Ready to unlock the<br />
+            <span class="ai-gradient-text">full power of AI?</span>
+        </h2>
+        <p class="text-slate-400 text-lg mb-10 leading-relaxed max-w-xl mx-auto">
+            Seats are limited. Join the Advanced Generative AI & Prompt Engineering training and position yourself ahead of the curve — personally and professionally.
+        </p>
+        <a href="https://paystack.shop/pay/xsnf03683x" target="_blank" rel="noopener noreferrer"
+            class="ai-cta-pulse inline-flex items-center gap-3 px-12 py-5 rounded-full text-white text-xl font-black transition-all duration-200 hover:scale-105 hover:opacity-90"
+            style="background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 50%, #8b5cf6 100%);">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+            </svg>
+            Register Now — ₦10,000 →
+        </a>
+        <p class="text-slate-500 text-sm mt-6">🔒 Payment powered by Paystack · Secure & Instant</p>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    // ── Scroll reveal ──
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // ── FAQ accordion ──
+    document.querySelectorAll('.faq-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const body = btn.nextElementSibling;
+            const icon = btn.querySelector('.faq-icon');
+            const isOpen = !body.classList.contains('hidden');
+            // Close all
+            document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
+            document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = '');
+            document.querySelectorAll('.faq-btn').forEach(b => b.setAttribute('aria-expanded', 'false'));
+            if (!isOpen) {
+                body.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+                btn.setAttribute('aria-expanded', 'true');
+            }
+        });
+    });
+</script>
+{% endblock %}

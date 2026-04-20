@@ -1,0 +1,563 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 1: HERO
+════════════════════════════════════════════════════ -->
+<section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden px-6 md:px-12 pt-24">
+
+    <!-- Animated background blobs -->
+    <div class="absolute inset-0 -z-10" aria-hidden="true">
+        <div class="absolute top-1/4 -left-32 w-96 h-96 bg-primary-600/20 rounded-full blur-3xl animate-pulse"></div>
+        <div
+            class="absolute bottom-1/4 -right-32 w-80 h-80 bg-accent-600/20 rounded-full blur-3xl animate-pulse delay-1000">
+        </div>
+        <div
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary-500/5 rounded-full blur-3xl">
+        </div>
+        <!-- Grid overlay -->
+        <div class="absolute inset-0"
+            style="background-image: linear-gradient(rgba(99,102,241,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(99,102,241,0.05) 1px, transparent 1px); background-size: 60px 60px;">
+        </div>
+    </div>
+
+    <div class="max-w-5xl mx-auto text-center">
+
+        <!-- Availability badge -->
+        <div
+            class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card border border-primary-500/30 text-sm text-primary-400 font-medium mb-8 animate-fade-in">
+            <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+            Available for new projects
+        </div>
+
+        <!-- Name -->
+        <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-none mb-4 animate-slide-up">
+            <span class="text-white">Samuel</span>
+            <span class="gradient-text"> Seye</span>
+        </h1>
+
+        <!-- Title ribbon -->
+        <div class="inline-flex flex-wrap justify-center gap-3 mb-6 animate-slide-up">
+            {% for role in ['Software Developer', 'Python Developer', 'Fullstack Developer'] %}
+            <span
+                class="px-4 py-1.5 rounded-full glass-card border border-white/10 text-slate-300 text-sm md:text-base font-medium">
+                {{ role }}
+            </span>
+            {% endfor %}
+        </div>
+
+        <!-- Tagline -->
+        <p class="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed animate-fade-in">
+            I build <span class="text-white font-semibold">scalable backend systems</span>,
+            <span class="text-white font-semibold">automation tools</span>, and
+            <span class="text-white font-semibold">modern web applications</span>
+            using Python and modern technologies.
+        </p>
+
+        <!-- CTA buttons -->
+        <div class="flex flex-wrap gap-4 justify-center animate-fade-in">
+            <a href="#projects"
+                class="px-7 py-3.5 rounded-full bg-gradient-to-r from-primary-600 to-accent-600 text-white font-semibold hover:opacity-90 shadow-xl shadow-primary-500/30 transition-all duration-200 hover:scale-105 flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+                View Projects
+            </a>
+            <a href="#contact"
+                class="px-7 py-3.5 rounded-full glass-card border border-white/10 text-white font-semibold hover:border-primary-500/50 hover:bg-primary-500/10 transition-all duration-200 flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                Contact Me
+            </a>
+            <a href="https://github.com/spw3bt3ch" target="_blank" rel="noopener noreferrer"
+                class="px-7 py-3.5 rounded-full glass-card border border-white/10 text-white font-semibold hover:border-primary-500/50 hover:bg-primary-500/10 transition-all duration-200 flex items-center gap-2">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                        d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+                </svg>
+                GitHub Profile
+            </a>
+        </div>
+
+        <!-- Stats -->
+        <div class="flex flex-wrap justify-center gap-8 mt-16 animate-fade-in">
+            {% for stat in [('4+', 'Projects Built'), ('3+', 'Years Experience'), ('10+', 'Technologies'), ('100%',
+            'Commitment')] %}
+            <div class="text-center">
+                <p class="text-3xl font-black gradient-text">{{ stat[0] }}</p>
+                <p class="text-slate-400 text-xs font-medium mt-1">{{ stat[1] }}</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="mt-16 flex justify-center animate-float">
+            <a href="#about" aria-label="Scroll to about section"
+                class="w-10 h-10 flex items-center justify-center rounded-full glass-card border border-white/10 text-slate-400 hover:text-primary-400 transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+            </a>
+        </div>
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 2: ABOUT
+════════════════════════════════════════════════════ -->
+<section id="about" class="py-24 px-6 md:px-12">
+    <div class="max-w-7xl mx-auto">
+
+        <!-- Section header -->
+        <div class="text-center mb-16">
+            <span class="inline-block text-primary-400 font-semibold text-sm uppercase tracking-widest mb-3">About
+                Me</span>
+            <h2 class="text-4xl md:text-5xl font-black text-white">
+                Who I <span class="gradient-text">Am</span>
+            </h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+
+            <!-- Profile image placeholder -->
+            <div class="flex justify-center md:justify-start">
+                <div class="relative">
+                    <div
+                        class="w-64 h-64 md:w-[420px] md:h-[480px] rounded-3xl overflow-hidden shadow-2xl shadow-primary-500/30 animate-float ring-4 ring-primary-500/30">
+                        <img src="{{ url_for('static', filename='images/Sam.png') }}"
+                            alt="Samuel Seye – Software Developer" class="w-full h-full object-cover object-top" />
+                    </div>
+                    <!-- Floating badge -->
+                    <div class="absolute -bottom-4 -right-4 glass-card border border-white/10 px-4 py-2 rounded-xl">
+                        <p class="text-white font-bold text-sm">📍 Nigeria</p>
+                    </div>
+                    <div class="absolute -top-4 -left-4 glass-card border border-white/10 px-4 py-2 rounded-xl">
+                        <p class="text-green-400 font-bold text-sm">● Open to Work</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bio text -->
+            <div class="space-y-6">
+                <h3 class="text-2xl md:text-3xl font-bold text-white leading-snug">
+                    A passionate developer building<br />
+                    <span class="gradient-text">impactful software solutions.</span>
+                </h3>
+
+                <p class="text-slate-400 leading-relaxed">
+                    I'm <strong class="text-white">Samuel Seye</strong>, a dedicated Software Developer based in Nigeria
+                    with deep expertise in Python-based backend engineering, fullstack web development, and automation
+                    systems.
+                    I specialize in turning complex problems into clean, scalable, and maintainable software.
+                </p>
+
+                <p class="text-slate-400 leading-relaxed">
+                    From architecting RESTful APIs with <strong class="text-white">Flask</strong> and <strong
+                        class="text-white">FastAPI</strong>,
+                    to building complete fullstack platforms, I thrive in every layer of the stack.
+                    I am also an experienced <strong class="text-white">coding instructor</strong>, passionate about
+                    mentoring the next generation of African developers.
+                </p>
+
+                <!-- Key highlights -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                    {% for item in [
+                    ('🐍', 'Python Specialist'),
+                    ('⚡', 'Flask & FastAPI Expert'),
+                    ('🌐', 'Fullstack Developer'),
+                    ('🤖', 'Automation Engineer'),
+                    ('🏫', 'Coding Instructor'),
+                    ('🔧', 'Systems Builder'),
+                    ] %}
+                    <div class="flex items-center gap-3 glass-card border border-white/5 rounded-xl px-4 py-3">
+                        <span class="text-xl">{{ item[0] }}</span>
+                        <span class="text-slate-300 text-sm font-medium">{{ item[1] }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Download/contact buttons -->
+                <div class="flex flex-wrap gap-4 pt-2">
+                    <a href="#contact"
+                        class="px-6 py-3 rounded-full bg-gradient-to-r from-primary-600 to-accent-600 text-white font-semibold hover:opacity-90 shadow-lg shadow-primary-500/30 transition-all hover:scale-105">
+                        Get In Touch
+                    </a>
+                    <a href="https://github.com/spw3bt3ch" target="_blank" rel="noopener noreferrer"
+                        class="px-6 py-3 rounded-full glass-card border border-white/10 text-white font-semibold hover:border-primary-500/50 transition-all">
+                        View GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 3: SKILLS
+════════════════════════════════════════════════════ -->
+<section id="skills" class="py-24 px-6 md:px-12 bg-slate-900/50">
+    <div class="max-w-7xl mx-auto">
+
+        <div class="text-center mb-16">
+            <span class="inline-block text-primary-400 font-semibold text-sm uppercase tracking-widest mb-3">Technical
+                Skills</span>
+            <h2 class="text-4xl md:text-5xl font-black text-white">
+                My <span class="gradient-text">Stack</span>
+            </h2>
+            <p class="text-slate-400 mt-4 max-w-xl mx-auto">Technologies and tools I use to build robust,
+                production-ready software.</p>
+        </div>
+
+        <!-- Skill category icons mapping -->
+        {% set category_icons = {
+        'Backend': '🖥️',
+        'Frontend': '🎨',
+        'Database': '🗄️',
+        'Tools': '🔧'
+        } %}
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {% for category, skill_list in skills.items() %}
+            <div
+                class="glass-card border border-white/5 rounded-2xl p-6 hover:border-primary-500/30 hover:shadow-lg hover:shadow-primary-500/10 transition-all duration-300 group">
+                <div
+                    class="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-600/30 to-accent-600/30 flex items-center justify-center text-2xl mb-5 group-hover:scale-110 transition-transform">
+                    {{ category_icons.get(category, '⚙️') }}
+                </div>
+                <h3 class="text-white font-bold text-lg mb-4">{{ category }}</h3>
+                <ul class="space-y-2.5">
+                    {% for skill in skill_list %}
+                    <li class="flex items-center gap-2.5">
+                        <span
+                            class="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-primary-500 to-accent-500 flex-shrink-0"></span>
+                        <span class="text-slate-300 text-sm font-medium">{{ skill }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Proficiency bars -->
+        <div class="mt-14 glass-card border border-white/5 rounded-2xl p-8">
+            <h3 class="text-white font-bold text-xl mb-8">Core Proficiency</h3>
+            <div class="grid md:grid-cols-2 gap-6">
+                {% for tech, level in [
+                ('Python', 95),
+                ('Flask / FastAPI', 90),
+                ('JavaScript', 75),
+                ('PostgreSQL / SQLite', 85),
+                ('HTML & Tailwind CSS', 88),
+                ('Git & GitHub', 90),
+                ] %}
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="text-slate-300 text-sm font-medium">{{ tech }}</span>
+                        <span class="text-primary-400 text-sm font-semibold">{{ level }}%</span>
+                    </div>
+                    <div class="h-2 bg-white/5 rounded-full overflow-hidden">
+                        <div class="h-full rounded-full bg-gradient-to-r from-primary-500 to-accent-500 transition-all duration-1000"
+                            style="width: {{ level }}%;" data-width="{{ level }}">
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 4: PROJECTS
+════════════════════════════════════════════════════ -->
+<section id="projects" class="py-24 px-6 md:px-12">
+    <div class="max-w-7xl mx-auto">
+
+        <div class="text-center mb-16">
+            <span
+                class="inline-block text-primary-400 font-semibold text-sm uppercase tracking-widest mb-3">Portfolio</span>
+            <h2 class="text-4xl md:text-5xl font-black text-white">
+                Featured <span class="gradient-text">Projects</span>
+            </h2>
+            <p class="text-slate-400 mt-4 max-w-xl mx-auto">Real-world applications built with modern technologies and
+                best practices.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+            {% for project in projects %}
+            <div
+                class="glass-card border border-white/5 rounded-2xl overflow-hidden hover:border-primary-500/30 hover:shadow-xl hover:shadow-primary-500/10 transition-all duration-300 group hover:-translate-y-1 flex flex-col">
+                <!-- Project thumbnail -->
+                <div class="h-48 relative overflow-hidden rounded-t-2xl">
+                    {% if project.image %}
+                    <img src="{{ url_for('static', filename=project.image) }}" alt="{{ project.title }} screenshot"
+                        class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" />
+                    <!-- subtle overlay on hover -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent">
+                    </div>
+                    {% else %}
+                    <div
+                        class="h-full bg-gradient-to-br from-primary-600/20 via-slate-800 to-accent-600/20 flex items-center justify-center">
+                        <span class="text-5xl select-none">🔐</span>
+                    </div>
+                    {% endif %}
+                    <span
+                        class="absolute top-4 right-4 text-xs font-semibold px-3 py-1 rounded-full bg-slate-900/70 text-primary-300 border border-primary-500/30 backdrop-blur-sm">
+                        Project #{{ loop.index }}
+                    </span>
+                </div>
+
+                <!-- Card body -->
+                <div class="p-6 flex flex-col flex-1">
+                    <h3 class="text-white font-bold text-xl mb-3 group-hover:text-primary-400 transition-colors">
+                        {{ project.title }}
+                    </h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-5 flex-1">
+                        {{ project.description }}
+                    </p>
+
+                    <!-- Tech tags -->
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        {% for tech in project.technologies %}
+                        <span
+                            class="px-2.5 py-1 rounded-full text-xs font-medium bg-primary-500/10 text-primary-300 border border-primary-500/20">
+                            {{ tech }}
+                        </span>
+                        {% endfor %}
+                    </div>
+
+                    <!-- Action buttons -->
+                    <div class="flex gap-3">
+                        <a href="{{ project.github }}" target="_blank" rel="noopener noreferrer"
+                            class="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-white/5 border border-white/10 text-sm text-slate-300 hover:bg-primary-500/20 hover:border-primary-500/50 hover:text-white transition-all font-medium">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+                            </svg>
+                            GitHub
+                        </a>
+                        <a href="{{ project.demo }}"
+                            class="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-gradient-to-r from-primary-600/80 to-accent-600/80 text-sm text-white font-medium hover:from-primary-600 hover:to-accent-600 transition-all">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                            </svg>
+                            Live Demo
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- GitHub CTA -->
+        <div class="mt-12 text-center">
+            <a href="https://github.com/spw3bt3ch" target="_blank" rel="noopener noreferrer"
+                class="inline-flex items-center gap-3 px-8 py-4 rounded-full glass-card border border-white/10 text-white font-semibold hover:border-primary-500/50 hover:bg-primary-500/10 transition-all duration-200 hover:scale-105">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                        d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+                </svg>
+                View All Projects on GitHub
+            </a>
+        </div>
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 5: SERVICES
+════════════════════════════════════════════════════ -->
+<section id="services" class="py-24 px-6 md:px-12 bg-slate-900/50">
+    <div class="max-w-7xl mx-auto">
+
+        <div class="text-center mb-16">
+            <span class="inline-block text-primary-400 font-semibold text-sm uppercase tracking-widest mb-3">What I
+                Offer</span>
+            <h2 class="text-4xl md:text-5xl font-black text-white">
+                My <span class="gradient-text">Services</span>
+            </h2>
+            <p class="text-slate-400 mt-4 max-w-xl mx-auto">From concept to deployment — I deliver end-to-end software
+                solutions.</p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for service in services %}
+            <div
+                class="glass-card border border-white/5 rounded-2xl p-7 hover:border-primary-500/30 hover:shadow-xl hover:shadow-primary-500/10 transition-all duration-300 group hover:-translate-y-1">
+                <div
+                    class="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary-600/20 to-accent-600/20 border border-primary-500/20 flex items-center justify-center text-3xl mb-5 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-primary-500/20 transition-all">
+                    {{ service.icon }}
+                </div>
+                <h3 class="text-white font-bold text-lg mb-3 group-hover:text-primary-400 transition-colors">
+                    {{ service.title }}
+                </h3>
+                <p class="text-slate-400 text-sm leading-relaxed">
+                    {{ service.description }}
+                </p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- CTA banner -->
+        <div
+            class="mt-14 glass-card border border-primary-500/20 rounded-3xl p-10 text-center bg-gradient-to-br from-primary-900/20 to-accent-900/20">
+            <h3 class="text-white text-2xl md:text-3xl font-black mb-3">
+                Ready to build something <span class="gradient-text">great</span>?
+            </h3>
+            <p class="text-slate-400 mb-7 max-w-md mx-auto">
+                Let's collaborate and turn your ideas into production-ready software.
+            </p>
+            <a href="#contact"
+                class="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-primary-600 to-accent-600 text-white font-bold shadow-xl shadow-primary-500/30 hover:opacity-90 transition-all hover:scale-105">
+                Start a Project
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+            </a>
+        </div>
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 6: CONTACT
+════════════════════════════════════════════════════ -->
+<section id="contact" class="py-24 px-6 md:px-12">
+    <div class="max-w-6xl mx-auto">
+
+        <div class="text-center mb-16">
+            <span class="inline-block text-primary-400 font-semibold text-sm uppercase tracking-widest mb-3">Get In
+                Touch</span>
+            <h2 class="text-4xl md:text-5xl font-black text-white">
+                Let's <span class="gradient-text">Connect</span>
+            </h2>
+            <p class="text-slate-400 mt-4 max-w-xl mx-auto">
+                Have a project in mind or want to work together? Reach out — I'd love to hear from you.
+            </p>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-12">
+
+            <!-- Contact info -->
+            <div class="space-y-6">
+                <h3 class="text-white text-2xl font-bold mb-6">Contact Information</h3>
+
+                <!-- Phone -->
+                <a href="tel:+2347077705842"
+                    class="flex items-center gap-5 glass-card border border-white/5 rounded-2xl p-5 hover:border-primary-500/30 hover:bg-primary-500/5 transition-all group">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-primary-500/20 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform flex-shrink-0">
+                        📱
+                    </div>
+                    <div>
+                        <p class="text-slate-400 text-xs font-medium uppercase tracking-wider mb-1">Phone & WhatsApp</p>
+                        <p class="text-white font-semibold">07077705842</p>
+                        <p class="text-primary-400 text-xs mt-0.5">Available for calls & chat</p>
+                    </div>
+                </a>
+
+                <!-- Email -->
+                <a href="mailto:samueloluwapelumi8@gmail.com"
+                    class="flex items-center gap-5 glass-card border border-white/5 rounded-2xl p-5 hover:border-primary-500/30 hover:bg-primary-500/5 transition-all group">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-accent-500/20 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform flex-shrink-0">
+                        ✉️
+                    </div>
+                    <div>
+                        <p class="text-slate-400 text-xs font-medium uppercase tracking-wider mb-1">Email</p>
+                        <p class="text-white font-semibold break-all">samueloluwapelumi8@gmail.com</p>
+                        <p class="text-primary-400 text-xs mt-0.5">Reply within 24 hours</p>
+                    </div>
+                </a>
+
+                <!-- GitHub -->
+                <a href="https://github.com/spw3bt3ch" target="_blank" rel="noopener noreferrer"
+                    class="flex items-center gap-5 glass-card border border-white/5 rounded-2xl p-5 hover:border-primary-500/30 hover:bg-primary-500/5 transition-all group">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-slate-700/50 flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0">
+                        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="text-slate-400 text-xs font-medium uppercase tracking-wider mb-1">GitHub</p>
+                        <p class="text-white font-semibold">github.com/spw3bt3ch</p>
+                        <p class="text-primary-400 text-xs mt-0.5">View my repositories</p>
+                    </div>
+                </a>
+
+                <!-- WhatsApp quick link -->
+                <a href="https://wa.me/2347077705842?text=Hi%20Samuel%2C%20I%20found%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20project."
+                    target="_blank" rel="noopener noreferrer"
+                    class="flex items-center justify-center gap-3 w-full py-4 rounded-2xl bg-green-600/80 hover:bg-green-600 text-white font-bold border border-green-500/50 transition-all hover:scale-[1.02] shadow-lg shadow-green-500/20">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+                        <path
+                            d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.852L.057 23.25l5.551-1.457A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.017-1.374l-.36-.213-3.294.865.879-3.21-.235-.373A9.818 9.818 0 112.182 12 9.818 9.818 0 0112 21.818z" />
+                    </svg>
+                    Chat on WhatsApp
+                </a>
+            </div>
+
+            <!-- Contact form -->
+            <div class="glass-card border border-white/5 rounded-2xl p-8">
+                <h3 class="text-white font-bold text-xl mb-6">Send a Message</h3>
+                <form id="contact-form" class="space-y-5" novalidate>
+                    <div class="grid sm:grid-cols-2 gap-5">
+                        <div>
+                            <label for="contact-name" class="block text-slate-400 text-sm font-medium mb-2">Your
+                                Name</label>
+                            <input id="contact-name" type="text" placeholder="John Doe"
+                                class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-primary-500/50 focus:ring-1 focus:ring-primary-500/30 transition-all"
+                                required />
+                        </div>
+                        <div>
+                            <label for="contact-email" class="block text-slate-400 text-sm font-medium mb-2">Your
+                                Email</label>
+                            <input id="contact-email" type="email" placeholder="john@example.com"
+                                class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-primary-500/50 focus:ring-1 focus:ring-primary-500/30 transition-all"
+                                required />
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="contact-subject"
+                            class="block text-slate-400 text-sm font-medium mb-2">Subject</label>
+                        <input id="contact-subject" type="text" placeholder="Project Inquiry"
+                            class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-primary-500/50 focus:ring-1 focus:ring-primary-500/30 transition-all" />
+                    </div>
+
+                    <div>
+                        <label for="contact-message"
+                            class="block text-slate-400 text-sm font-medium mb-2">Message</label>
+                        <textarea id="contact-message" rows="5" placeholder="Tell me about your project..."
+                            class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-primary-500/50 focus:ring-1 focus:ring-primary-500/30 transition-all resize-none"
+                            required></textarea>
+                    </div>
+
+                    <button type="submit" id="form-submit-btn"
+                        class="w-full py-4 rounded-xl bg-gradient-to-r from-primary-600 to-accent-600 text-white font-bold hover:opacity-90 shadow-lg shadow-primary-500/30 transition-all hover:scale-[1.02] flex items-center justify-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                        </svg>
+                        Send Message
+                    </button>
+
+                    <!-- Success / error feedback -->
+                    <div id="form-feedback" class="hidden text-center py-3 px-4 rounded-xl text-sm font-medium"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

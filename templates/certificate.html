@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate of Achievement</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <style>
+        @media print {
+            @page { margin: 0; size: landscape; }
+            body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .no-print { display: none !important; }
+        }
+        
+        body {
+            background-color: #e2e8f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+        }
+
+        .cert-wrapper {
+            width: 1123px; /* A4 Landscape width */
+            height: 794px; /* A4 Landscape height */
+            background-color: #fcfcfc;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+            
+            /* Use the provided certificate template */
+            background-image: url('/static/images/certificate format.png'); 
+            background-size: cover; 
+            background-position: center;
+        }
+
+        /* ─── TYPOGRAPHY OVERLAYS ─── */
+        /* Adjust the 'top' values below to perfectly align the text with the blank spaces on your image */
+
+        .student-name {
+            position: absolute;
+            top: 380px; /* Adjust this value up or down to align with the name line on the image */
+            width: 100%;
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 700;
+            color: #0f172a;
+            z-index: 10;
+        }
+
+        .date-text {
+            position: absolute;
+            bottom: 120px; /* Adjust this value up or down to align with the date line on the image */
+            left: 200px; /* Adjust left/right position */
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #111827;
+            z-index: 10;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Print Controls -->
+    <div class="fixed top-4 right-4 no-print flex gap-2 z-50">
+        <button onclick="downloadPNG()" class="px-6 py-2 bg-yellow-500 text-slate-900 rounded-lg shadow-lg font-bold hover:bg-yellow-400 transition">Download PNG</button>
+        <button onclick="window.print()" class="px-6 py-2 bg-slate-900 text-white rounded-lg shadow-lg font-semibold hover:bg-slate-800 transition">Print PDF</button>
+        <a href="/student/dashboard" class="px-6 py-2 bg-white text-slate-900 border border-slate-300 rounded-lg shadow font-semibold hover:bg-slate-50 transition">Back to Dashboard</a>
+    </div>
+
+    <!-- Certificate Container -->
+    <div class="cert-wrapper">
+        
+        <!-- Dynamic Student Name -->
+        <!-- Note: Replace "John Doe" with {{ student_name }} in Flask -->
+        <div class="student-name">John Doe</div>
+
+        <!-- Dynamic Date -->
+        <!-- Note: Replace this date with the actual Admin Approval Date {{ approval_date }} in Flask -->
+        <div class="date-text">16/04/2026</div>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        // If the user wants to populate the fields via JS parameters for testing
+        const urlParams = new URLSearchParams(window.location.search);
+        const name = urlParams.get('name');
+        const date = urlParams.get('date');
+        
+        if (name) document.querySelector('.student-name').textContent = name;
+        if (date) document.querySelector('.date-text').textContent = date;
+
+        // High Quality PNG Download function
+        function downloadPNG() {
+            const certElement = document.querySelector('.cert-wrapper');
+            // Show a quick loading state on the button if needed (optional)
+            
+            html2canvas(certElement, {
+                scale: 3, // 3x scale for high resolution/DPI
+                useCORS: true,
+                backgroundColor: '#fcfcfc',
+                logging: false
+            }).then(canvas => {
+                const image = canvas.toDataURL("image/png", 1.0);
+                const link = document.createElement('a');
+                link.download = 'AI_Training_Certificate.png';
+                link.href = image;
+                link.click();
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,2 +1,2 @@
-# sam-ai
-Gen AI training website
+# dev-sam
+personer portfolio as a developer
